@@ -129,6 +129,14 @@ namespace AnyoneDrive
             return await response.Content.ReadAsStreamAsync();
         }
 
+        /// <summary>
+        /// Reads the content of a file as a stream asynchronously.
+        /// </summary>
+        /// <param name="fileInfo">The OneDriveFileInfo representing the file to be read.</param>
+        /// <param name="httpClient">The HttpClient used for making the HTTP request.</param>
+        /// <returns>A stream containing the file's content.</returns>
+        public static async Task<Stream> ReadAsStreamAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient) => await fileInfo.ReadAsStreamAsync(httpClient);
+
 
         /// <summary>
         /// Reads the content of a file as a byte array asynchronously.
@@ -144,6 +152,17 @@ namespace AnyoneDrive
 
             return await response.Content.ReadAsByteArrayAsync();
         }
+
+
+        /// <summary>
+        /// Reads the content of a file as a byte array asynchronously.
+        /// </summary>
+        /// <param name="fileInfo">The OneDriveFileInfo representing the file to be read.</param>
+        /// <param name="httpClient">The HttpClient used for making the HTTP request.</param>
+        /// <returns>An array of bytes containing the file's content.</returns>
+        public static async Task<byte[]> ReadAsByteArrayAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient) => await fileInfo.ReadAsByteArrayAsync(httpClient);
+
+
 
         /// <summary>
         /// Reads a block of bytes from the provided stream asynchronously.
