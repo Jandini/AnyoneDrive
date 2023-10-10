@@ -63,7 +63,7 @@ namespace AnyoneDrive
         /// <param name="folderInfo">Information about the OneDrive folder to retrieve files from.</param>
         /// <param name="httpClient">The HttpClient instance used to make the API request.</param>
         /// <returns>An array of OneDriveFileInfo representing the files within the folder.</returns>
-        public static async Task<OneDriveFileInfo[]> GetFilesAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetFilesAsync(httpClient);
+        public static async Task<OneDriveFileInfo[]> GetFilesAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetFilesAsync(httpClient, CancellationToken.None);
 
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace AnyoneDrive
         /// <param name="cancellationToken">A CancellationToken for canceling the asynchronous operation.</param>
         /// <returns>An array of OneDriveFolderInfo representing the folders within the folder.</returns>
 
-        public static async Task<OneDriveFolderInfo[]> GetFoldersAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetFoldersAsync(httpClient);
+        public static async Task<OneDriveFolderInfo[]> GetFoldersAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetFoldersAsync(httpClient, CancellationToken.None);
 
 
         /// <summary>
