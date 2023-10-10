@@ -2,7 +2,6 @@
 {
     public class OneDriveFolderInfo : OneDriveItemInfo
     {
-
         internal OneDriveFolderInfo(OneDriveItem item)
             : base(item)
         {
