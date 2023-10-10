@@ -112,8 +112,38 @@ namespace AnyoneDrive
         /// A stream containing the content of the OneDrive file. The stream does not support length or position. 
         /// </returns>
         public static async Task<Stream> GetStreamAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient) => await fileInfo.GetStreamAsync(httpClient, CancellationToken.None);
-         
 
+
+        /// <summary>
+        /// Reads the content of a file as a stream asynchronously.
+        /// </summary>
+        /// <param name="fileInfo">The OneDriveFileInfo representing the file to be read.</param>
+        /// <param name="httpClient">The HttpClient used for making the HTTP request.</param>
+        /// <param name="cancellationToken">The cancellation token for canceling the operation.</param>
+        /// <returns>A stream containing the file's content.</returns>
+        public static async Task<Stream> ReadAsStreamAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient, CancellationToken cancellationToken)
+        {
+            var response = await httpClient.GetAsync(fileInfo.Url, cancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsStreamAsync();
+        }
+
+
+        /// <summary>
+        /// Reads the content of a file as a byte array asynchronously.
+        /// </summary>
+        /// <param name="fileInfo">The OneDriveFileInfo representing the file to be read.</param>
+        /// <param name="httpClient">The HttpClient used for making the HTTP request.</param>
+        /// <param name="cancellationToken">The cancellation token for canceling the operation.</param>
+        /// <returns>An array of bytes containing the file's content.</returns>
+        public static async Task<byte[]> ReadAsByteArrayAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient, CancellationToken cancellationToken)
+        {
+            var response = await httpClient.GetAsync(fileInfo.Url, cancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsByteArrayAsync();
+        }
 
         /// <summary>
         /// Reads a block of bytes from the provided stream asynchronously.
