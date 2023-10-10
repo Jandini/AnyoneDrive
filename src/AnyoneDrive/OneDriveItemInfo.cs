@@ -28,6 +28,7 @@
 
         internal OneDriveItemInfo()
         {
+
         }
 
         /// <summary>
@@ -40,7 +41,5 @@
             CreatedDateTime = item.CreatedDateTime;
             LastUpdatedDateTime = item.LastModifiedDateTime;
         }
-
-
     }
 }

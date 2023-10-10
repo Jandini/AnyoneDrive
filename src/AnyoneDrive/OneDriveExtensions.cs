@@ -39,6 +39,13 @@ namespace AnyoneDrive
         /// <returns>An array of OneDriveItemInfo representing the items within the folder.</returns>
         public static async Task<OneDriveItemInfo[]> GetItemsAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient, CancellationToken cancellationToken) => (await GetSharesAsync(folderInfo, httpClient, cancellationToken)).Collection.Select(item => item.Folder != null ? new OneDriveFolderInfo(item) : (OneDriveItemInfo)new OneDriveFileInfo(item)).ToArray();
 
+        /// <summary>
+        /// Retrieves a collection of OneDrive items within the specified folder.
+        /// </summary>
+        /// <param name="folderInfo">Information about the OneDrive folder to retrieve items from.</param>
+        /// <param name="httpClient">The HttpClient instance used to make the API request.</param>
+        /// <returns>An array of OneDriveItemInfo representing the items within the folder.</returns>
+        public static async Task<OneDriveItemInfo[]> GetItemsAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetItemsAsync(httpClient, CancellationToken.None);
 
 
         /// <summary>
@@ -50,6 +57,13 @@ namespace AnyoneDrive
         /// <returns>An array of OneDriveFileInfo representing the files within the folder.</returns>
         public static async Task<OneDriveFileInfo[]> GetFilesAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient, CancellationToken cancellationToken) => (await GetSharesAsync(folderInfo, httpClient, cancellationToken)).Collection.Where(item => item.File != null).Select(item => new OneDriveFileInfo(item)).ToArray();
 
+        /// <summary>
+        /// Retrieves a collection of OneDrive files within the specified folder.
+        /// </summary>
+        /// <param name="folderInfo">Information about the OneDrive folder to retrieve files from.</param>
+        /// <param name="httpClient">The HttpClient instance used to make the API request.</param>
+        /// <returns>An array of OneDriveFileInfo representing the files within the folder.</returns>
+        public static async Task<OneDriveFileInfo[]> GetFilesAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetFilesAsync(httpClient);
 
 
         /// <summary>
@@ -61,17 +75,25 @@ namespace AnyoneDrive
         /// <returns>An array of OneDriveFolderInfo representing the folders within the folder.</returns>
         public static async Task<OneDriveFolderInfo[]> GetFoldersAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient, CancellationToken cancellationToken) => (await GetSharesAsync(folderInfo, httpClient, cancellationToken)).Collection.Where(item => item.Folder != null).Select(item => new OneDriveFolderInfo(item)).ToArray();
 
+        /// <summary>
+        /// Retrieves a collection of OneDrive folders within the specified folder.
+        /// </summary>
+        /// <param name="folderInfo">Information about the OneDrive folder to retrieve folders from.</param>
+        /// <param name="httpClient">The HttpClient instance used to make the API request.</param>
+        /// <param name="cancellationToken">A CancellationToken for canceling the asynchronous operation.</param>
+        /// <returns>An array of OneDriveFolderInfo representing the folders within the folder.</returns>
+
+        public static async Task<OneDriveFolderInfo[]> GetFoldersAsync(this OneDriveFolderInfo folderInfo, HttpClient httpClient) => await folderInfo.GetFoldersAsync(httpClient);
 
 
         /// <summary>
-        /// Retrieves a stream containing the content of the specified OneDrive file.
+        /// Retrieves a stream containing the content of the specified OneDrive file. The stream is returned immediatelly. 
         /// </summary>
         /// <param name="fileInfo">Information about the OneDrive file to retrieve the content of.</param>
         /// <param name="httpClient">The HttpClient instance used to make the API request.</param>
         /// <param name="cancellationToken">A CancellationToken for canceling the asynchronous operation.</param>
         /// <returns>
-        /// A stream containing the content of the OneDrive file. 
-        /// The stream should be read in chunks to efficiently process the file content.
+        /// A stream containing the content of the OneDrive file. The stream does not support length or position. 
         /// </returns>
         public static async Task<Stream> GetStreamAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient, CancellationToken cancellationToken)
         {
@@ -81,6 +103,16 @@ namespace AnyoneDrive
             return await response.Content.ReadAsStreamAsync();
         }
 
+        /// <summary>
+        /// Retrieves a stream containing the content of the specified OneDrive file. The stream is returned immediatelly. 
+        /// </summary>
+        /// <param name="fileInfo">Information about the OneDrive file to retrieve the content of.</param>
+        /// <param name="httpClient">The HttpClient instance used to make the API request.</param>
+        /// <returns>
+        /// A stream containing the content of the OneDrive file. The stream does not support length or position. 
+        /// </returns>
+        public static async Task<Stream> GetStreamAsync(this OneDriveFileInfo fileInfo, HttpClient httpClient) => await fileInfo.GetStreamAsync(httpClient, CancellationToken.None);
+         
 
 
         /// <summary>
