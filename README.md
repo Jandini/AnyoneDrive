@@ -12,7 +12,7 @@ The library offers the simplest form of read only access, requiring no authentic
 var httpClient = new HttpClient();
 
 var root = new OneDriveFolderInfo("https://1drv.ms/f/s!AuveTnis1UC4ylzSgCoulSxnQGB9");
-var files = await root.root.GetFilesAsync(httpClient);
+var files = await root.GetFilesAsync(httpClient);
 ```
 
 
